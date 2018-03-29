@@ -1,0 +1,56 @@
+<div class="panel panel-info">
+	<my-header></my-header>
+
+	<div>
+		<table class="table">
+			<tr>
+				<td>UserName</td>
+				<td>Role</td>
+			</tr>
+			<tr ng-repeat="user in users">
+				<td>{{user.userName}}</td>
+				<td>{{user.roleName}}</td>
+				<td><a href="#/updateUserInfo/{{user.userId}}">Update</a>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-warning"
+						ng-click="remove(user.userId)">Delete</button></td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- Code to Add User Activity. -->
+
+
+	<div class="panel-body form-horizontal" role="form">
+		<h3>Add a new User</h3>
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">UserName</label>
+			<div class="col-xs-3">
+				<input type="text" name="userName" ng-model="userName"
+					class="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="owner" class="col-sm-2 control-label">Password</label>
+			<div class="col-xs-3">
+				<input type="text" name="password" ng-model="password"
+					class="form-control">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="owner" class="col-sm-2 control-label">Role</label>
+			<div class="col-xs-3">
+				<select class="form-control" ng-model="selectedRole">
+					<option ng-repeat="x in roles" value="{{x.rid}}">{{x.rolename}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="button" class="btn btn-default" ng-click="addUser()">Submit</button>
+			</div>
+		</div>
+	</div>
+
+
+</div>
