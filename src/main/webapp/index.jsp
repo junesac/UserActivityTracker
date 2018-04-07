@@ -21,7 +21,7 @@
 </head>
 <body>
 
-	<h1>User Settings</h1>
+	<h1>User Activities Tracker</h1>
 	<div ng-view></div>
 
 </body>

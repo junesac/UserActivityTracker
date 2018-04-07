@@ -18,4 +18,6 @@ public interface UserInfoDao {
 
 	UserInfo getUserByUserId(long id);
 
+	UserInfo login(UserInfo userInfo);
+
 }

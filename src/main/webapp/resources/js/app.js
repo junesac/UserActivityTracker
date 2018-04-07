@@ -11,32 +11,28 @@ app.config(function($routeProvider) {
 	$routeProvider.when('/userActivities', {
 		templateUrl : 'resources/pages/userActivities.html',
 		controller : 'UserActivitiesController'
-	});
-	$routeProvider.when('/updateUserActivities/:userActivityId', {
+	}).when('/updateUserActivities/:userActivityId', {
 		templateUrl : 'resources/pages/userActivityUpdate.html',
 		controller : 'UserActivityUpdateCtrl'
-	});
-	$routeProvider.when('/users', {
+	}).when('/users', {
 		templateUrl : 'resources/pages/userInfo.html',
 		controller : 'UserInfoController'
-	});
-	$routeProvider.when('/updateUserInfo/:userId', {
+	}).when('/updateUserInfo/:userId', {
 		templateUrl : 'resources/pages/userInfoUpdate.html',
 		controller : 'UserUpdateControlller'
-	});
-	$routeProvider.when('/home', {
+	}).when('/home', {
 		templateUrl : 'resources/pages/homePage.html',
 		controller : 'HomeController'
-	});
-
-	$routeProvider.when('/login', {
-		templateUrl : 'resources/pages/login.html',
+	}).when('/logout', {
+		templateUrl : 'resources/pages/homePage.html',
+		controller : 'LogoutController'
+	}).when('/register', {
+		templateUrl : 'resources/pages/registrationPage.html',
+		controller : 'RegistrationController'
+	}).when('/', {
+		templateUrl : 'resources/pages/loginPage.html',
 		controller : 'LoginController'
+	}).otherwise({
+		redirectTo : '/'
 	});
-//	$routeProvider.when('/', {
-//		redirectTo : '/login'
-//	});
-//	$routeProvider.otherwise({
-//		redirectTo : '/login'
-//	});
 });

@@ -7,6 +7,29 @@ public class UserInfo {
 	private String password;
 	private Long rId;
 	private String roleName;
+	private Long userSetting;
+
+	public Long getUserSetting() {
+		return userSetting;
+	}
+
+	public void setUserSetting(Long userSetting) {
+		this.userSetting = userSetting;
+	}
+
+	public UserInfo() {
+
+	}
+
+	public UserInfo(Long userId, String userName, String password, Long rId, String roleName, Long userSetting) {
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.rId = rId;
+		this.roleName = roleName;
+		this.userSetting = userSetting;
+
+	}
 
 	public String getRoleName() {
 		return roleName;
@@ -27,7 +50,7 @@ public class UserInfo {
 	@Override
 	public String toString() {
 		return "UserInfo [userId=" + userId + ", userName=" + userName + ", password=" + password + ", rId=" + rId
-				+ ", roleName=" + roleName + "]";
+				+ ", roleName=" + roleName + ", userSetting=" + userSetting + "]";
 	}
 
 	public Long getUserId() {

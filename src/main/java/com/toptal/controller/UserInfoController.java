@@ -37,6 +37,11 @@ public class UserInfoController {
 		return userInfoService.getUserByName(userName);
 	}
 	
+	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+	public UserInfo login(@RequestBody UserInfo userInfo) {
+		return userInfoService.login(userInfo);
+	}
+	
 
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public UserInfo createUser(@RequestBody UserInfo user) {

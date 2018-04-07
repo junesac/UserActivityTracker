@@ -19,12 +19,12 @@ public class UserActivityService {
 	@Autowired
 	private UserActivityDao userActivityDao;
 
-	public List<UserActivity> getUserActivities(Filter filter) {
-		return userActivityDao.getUserActivities(filter);
+	public List<UserActivity> getUserActivities(Long userId, Filter filter) {
+		return userActivityDao.getUserActivities(userId, filter);
 	}
 
-	public UserActivity createUserActivity(UserActivity userActivity) {
-		return userActivityDao.createUserActivity(userActivity);
+	public UserActivity createUserActivity(Long userId, UserActivity userActivity) {
+		return userActivityDao.createUserActivity(userId, userActivity);
 	}
 
 	public UserActivity getUserActivitiesByUserId(Long id) {

@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.toptal.constants.UserActivityTrackerConstants;
+import com.toptal.exception.UserActivityException;
 import com.toptal.model.Filter;
 import com.toptal.model.UserActivity;
 
@@ -21,55 +22,36 @@ public class UserActivityDaoImpl implements UserActivityDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<UserActivity> getUserActivities(Filter filter) {
-
-		boolean addedWhere = false;
+	public List<UserActivity> getUserActivities(Long userId, Filter filter) {
 
 		List<Object> list = new ArrayList<>();
 
 		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("SELECT * FROM UserActivity1 ");
+		queryBuilder.append("SELECT * FROM UserActivity1 where userid = ? and ");
+		list.add(userId);
 
 		if (filter.getFromDate() != null) {
-			if (!addedWhere) {
-				queryBuilder.append(" where ");
-				addedWhere = true;
-			}
-			queryBuilder.append(" startdate > ? and ");
+			queryBuilder.append(" startdate >= ? and ");
 			list.add(filter.getFromDate());
 		}
 
 		if (filter.getToDate() != null) {
-			if (!addedWhere) {
-				queryBuilder.append(" where ");
-				addedWhere = true;
-			}
-			queryBuilder.append(" startdate < ? and ");
+			queryBuilder.append(" startdate <= ? and ");
 			list.add(filter.getToDate());
 		}
 
 		if (filter.getFromTime() != null) {
-			if (!addedWhere) {
-				queryBuilder.append(" where ");
-				addedWhere = true;
-			}
-			queryBuilder.append(" time > ? and ");
+			queryBuilder.append(" time >= ? and ");
 			list.add(filter.getFromTime());
 		}
 
 		if (filter.getToTime() != null) {
-			if (!addedWhere) {
-				queryBuilder.append(" where ");
-				addedWhere = true;
-			}
-			queryBuilder.append(" time < ? and ");
+			queryBuilder.append(" time <= ? and ");
 			list.add(filter.getToTime());
 		}
 
 		String query = queryBuilder.toString();
-		if (addedWhere) {
-			query = query.substring(0, query.length() - 4);
-		}
+		query = query.substring(0, query.length() - 4);
 		Object arr[] = list.toArray();
 
 		System.out.println("Filter : " + filter);
@@ -84,7 +66,10 @@ public class UserActivityDaoImpl implements UserActivityDao {
 	}
 
 	@Override
-	public UserActivity createUserActivity(UserActivity userActivity) {
+	public UserActivity createUserActivity(Long userId, UserActivity userActivity) {
+
+		//checkActivityNameAvailable(userId, userActivity.getUaName());
+
 		Long id = jdbcTemplate.queryForObject("select max(uaid) from useractivity1", Long.class);
 		if (id == null) {
 			id = 1l;
@@ -102,6 +87,16 @@ public class UserActivityDaoImpl implements UserActivityDao {
 
 		System.out.println("Person Added!!");
 		return userActivity;
+	}
+
+	private void checkActivityNameAvailable(Long userId, String activityName) {
+
+		int count = jdbcTemplate.queryForObject("SELECT count(1) FROM UserActivity1 u where lower(u.uaname) = ? and u.userid = ?",
+				new Object[] { activityName.toLowerCase(), userId }, Integer.class);
+
+		if (count != 0) {
+			throw new UserActivityException("Activity Already exist.");
+		}
 	}
 
 	@Override

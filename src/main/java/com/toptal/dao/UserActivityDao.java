@@ -7,9 +7,9 @@ import com.toptal.model.UserActivity;
 
 public interface UserActivityDao {
 
-	List<UserActivity> getUserActivities(Filter filter);
+	List<UserActivity> getUserActivities(Long userId, Filter filter);
 
-	UserActivity createUserActivity(UserActivity userActivity);
+	UserActivity createUserActivity(Long userId, UserActivity userActivity);
 
 	UserActivity getUserActivitiesByUserId(Long userId);
 

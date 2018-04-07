@@ -22,10 +22,10 @@ public class UserActivityController {
 	@Qualifier(value = "userActivityService")
 	private UserActivityService userActivityService;
 
-	@RequestMapping(value = "/getUserActivities", method = RequestMethod.POST, produces = "application/json")
-	public List<UserActivity> getUserActivities(@RequestBody Filter filter) {
+	@RequestMapping(value = "/getUserActivities/{userId}", method = RequestMethod.POST, produces = "application/json")
+	public List<UserActivity> getUserActivities(@PathVariable Long userId, @RequestBody Filter filter) {
 		System.out.println("Filter in controller : " + filter);
-		return userActivityService.getUserActivities(filter);
+		return userActivityService.getUserActivities(userId, filter);
 	}
 
 	@RequestMapping(value = "/getUserActivitiesByUserId/{id}", method = RequestMethod.GET, produces = "application/json")
@@ -33,9 +33,9 @@ public class UserActivityController {
 		return userActivityService.getUserActivitiesByUserId(Long.parseLong(id));
 	}
 
-	@RequestMapping(value = "/createUserActivity", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public UserActivity createUserActivity(@RequestBody UserActivity userActivity) {
-		return userActivityService.createUserActivity(userActivity);
+	@RequestMapping(value = "/createUserActivity/{userId}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public UserActivity createUserActivity(@PathVariable Long userId, @RequestBody UserActivity userActivity) {
+		return userActivityService.createUserActivity(userId, userActivity);
 	}
 
 	@RequestMapping(value = "/updateUserActivity/{id}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")

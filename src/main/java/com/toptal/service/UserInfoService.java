@@ -38,4 +38,8 @@ public class UserInfoService {
 		return userInfoDao.getUserByUserId(id);
 	}
 
+	public UserInfo login(UserInfo userInfo) {
+		return userInfoDao.login(userInfo);
+	}
+
 }
